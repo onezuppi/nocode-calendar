@@ -1,0 +1,8 @@
+<ab-select-autocomplete-control [model]="model" [form]="model" (searchChange)="colors$.next($event)">
+    <ab-data-list *dataList>
+        <ab-data-list-item class="color-picker__data-list" *ngFor="let color of colors$ | async" [value]="color.name">
+            <div class="color-picker__color-block" [style.background-color]="color.value"></div>
+            {{ color.name }}
+        </ab-data-list-item>
+    </ab-data-list>
+</ab-select-autocomplete-control>

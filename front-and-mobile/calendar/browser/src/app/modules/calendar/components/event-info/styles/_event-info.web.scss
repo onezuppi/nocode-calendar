@@ -1,0 +1,100 @@
+@use "common-styles/common-styles" as *;
+
+.info-event {
+    &__title {
+        @include make-col-ready();
+        display: flex;
+        border-bottom: 1px solid $line;
+        padding-bottom: $spacing-l;
+        margin-bottom: $spacing-l;
+        padding-left: 0;
+        padding-right: 0;
+
+        &_name {
+            @include make-col(11, 12);
+            display: block;
+            padding-right: $spacing-l;
+        }
+
+        &_color {
+            @include make-col(1, 12);
+            border-radius: 4px;
+        }
+    }
+
+    &__time-title {
+        margin-bottom: $spacing-xs;
+        display: block;
+    }
+
+    &__calendar {
+        display: flex;
+    }
+
+    &__user-title {
+        margin-bottom: $spacing-s;
+    }
+
+    &__users-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: $spacing-s;
+    }
+
+    &__users {
+        display: flex;
+        grid-auto-flow: column;
+        gap: $spacing-s;
+        align-items: center;
+    }
+
+    &__user {
+        padding-right: $spacing-s;
+    }
+
+
+    &__calendar-id {
+        padding-left: $spacing-m;
+    }
+
+    &__time {
+        display: block;
+        padding-bottom: $spacing-xs;
+    }
+
+    &__time-controls {
+        display: flex;
+    }
+
+    &__additional-data {
+        background-color: $bg-body;
+        border-radius: 4px;
+        padding: $spacing-m;
+        margin-bottom: $spacing-m;
+    }
+
+    &__description {
+        display: block;
+        padding-bottom: $spacing-s;
+    }
+
+    &__place {
+        display: flex;
+        padding-bottom: $spacing-s;
+    }
+
+    &__remind {
+        display: flex;
+    }
+
+    &__additional-title {
+        padding-right: $spacing-s;
+    }
+
+    &__buttons {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        padding-top: $spacing-l;
+    }
+}

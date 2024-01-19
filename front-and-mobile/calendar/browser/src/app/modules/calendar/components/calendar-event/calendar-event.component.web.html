@@ -1,0 +1,40 @@
+<div *ngIf="event" class="event" #me>
+    <ng-container *ngIf="event.isAllDay || (me.clientHeight > tableData.cellHeight / 2) || showDateRange; else justStart">
+        <div class="event__container" [ngClass]="{'is-allDay': event.isAllDay }">
+            <div class="event__name">
+                <span [abUiTooltip]="tooltip" [colorScheme]="'light'" position="top-center">
+                    {{ event.name }}
+                </span>
+            </div>
+            <div class="event__time" abRelativeLuminance *ngIf="!event.isAllDay">
+                {{ event.dateStartUtc | dateFormat: 'hh:mm' }}
+                -
+                {{ event.dateEndUtc | dateFormat : 'hh:mm' }}
+            </div>
+            <div class="event__date" abRelativeLuminance *ngIf="event.isAllDay && showDateRange">
+                {{ event.dateStartUtc | dateFormat: 'DD.MM' }}
+                <ng-container *ngIf="!isOneDayEvent">
+                    -
+                    {{ event.dateEndUtc | dateFormat : 'DD.MM' }}
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #justStart>
+        <div class="event__just-start">
+            <div class="event__name">
+               <span [abHint]="hint" type="empty" position="top-center">
+                    {{ event.name }}
+                </span>
+            </div>
+            <div class="event__time" *ngIf="!event.isAllDay">
+                {{ event.dateStartUtc | dateFormat: 'hh:mm' }}
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+
+<ng-template #tooltip>
+    {{ event.name }}
+</ng-template>

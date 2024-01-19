@@ -1,0 +1,165 @@
+@use "common-styles/common-styles" as *;
+
+.calendar {
+    padding: 12px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 48px 1fr;
+    background: $bg-page;
+    border-radius: 8px;
+
+    &__body {
+        overflow: hidden;
+        height: 100%;
+        margin-top: $spacing-3xl;
+        margin-left: -20px;
+    }
+
+    &__search-block {
+        display: flex;
+        justify-content: end;
+        margin-bottom: $spacing-l;
+    }
+
+    &__search {
+        margin-right: $spacing-l;
+        width: 100%;
+    }
+
+    &__search-item {
+        display: flex;
+        align-items: center;
+    }
+
+    &__event-name {
+        @include P14-medium;
+    }
+
+    &__time {
+        padding-left: $spacing-l;
+        font-weight: 300;
+        color: $text-tertiary;
+    }
+
+    &__color-block {
+        border-radius: 4px;
+        height: $spacing-m;
+        width: $spacing-m;
+        margin-right: $spacing-s;
+    }
+
+    &__navbar-tabs {
+        width: max-content;
+        margin-bottom: $spacing-2l;
+    }
+
+    &__navigation {
+        display: flex;
+        gap: $spacing-s;
+        align-items: center;
+        padding-left: 2px;
+    }
+
+
+    &__navigation-title {
+        @include P14-medium;
+    }
+
+    &__navigation-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-xl;
+    }
+
+    &__navigation-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: $secondary;
+        width: $icon-size-l;
+        height: $icon-size-l;
+        cursor: pointer;
+    }
+
+    &__navigation-now {
+        @include P14-medium;
+
+        color: $primary;
+        cursor: pointer;
+    }
+
+    &__dropdown {
+        background-color: $bg-global;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $line-border;
+        border-radius: 4px;
+        padding: $spacing-s 0;
+    }
+
+    &__dropdown-button {
+        @include P14-medium();
+        width: 150px;
+        padding: $spacing-s;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $bg-row-hover;
+        }
+    }
+
+    &__controls {
+        display: grid;
+        grid-auto-flow: column;
+        gap: $spacing-l;
+    }
+
+    &__loader {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__loader-icon {
+        position: absolute;
+        z-index: 101;
+        fill: $primary;
+        animation: loader-anim 0.3s linear infinite;
+    }
+
+
+    &__wrapper {
+        padding: $spacing-xs $spacing-2l $spacing-m;
+
+        &_main {
+            padding-top: $spacing-2xl;
+        }
+    }
+
+    &__search-icon {
+        fill: $icon;
+    }
+
+    &__search-control {
+        width: 100%;
+        margin-top: $spacing-xs;
+        //margin: 0 2px 0 $spacing-xs; //чтобы не обрезалась тень у контрола
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: $spacing-2xl;
+        padding: $spacing-s $spacing-2l 0;
+    }
+
+    &__icon-header {
+        fill: $icon-secondary;
+    }
+}
+

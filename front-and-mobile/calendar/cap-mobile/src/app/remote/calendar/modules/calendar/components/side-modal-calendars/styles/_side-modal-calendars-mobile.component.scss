@@ -1,0 +1,89 @@
+@use "common-styles/common-styles" as *;
+
+.side-modal {
+
+    &__button-list {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__sidebar-header-close {
+        cursor: pointer;
+    }
+
+    &__sidebar-body {
+        padding: $spacing-m $spacing-m 0 $spacing-m;
+    }
+
+    &__sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-l;
+        padding: $spacing-m $spacing-m 0 $spacing-m;
+    }
+
+    &__add-button {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: $spacing-m;
+    }
+
+    &__add-calendars-select {
+        display: block;
+        padding-bottom: $spacing-l;
+    }
+
+    &__add-calendars {
+        display: block;
+        padding-bottom: $spacing-l;
+    }
+
+    &__selected-calendars {
+        @include P16-medium;
+    }
+
+    &__add-calendars-button {
+        display: flex;
+        text-align: center;
+        justify-content: space-evenly;
+        margin-top: $spacing-l;
+    }
+
+    &__save-button {
+        position: fixed;
+        bottom: 0;
+        /* Отступы внутри блока */
+        padding: 24px 24px 24px 0;
+        text-align: center; /* Выравнивание содержимого по центру */
+    }
+
+    &__loader {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__loader-icon {
+        position: absolute;
+        z-index: 101;
+        fill: $primary;
+        animation: loader-anim 0.3s linear infinite;
+    }
+
+    &__add-calendars-select-item {
+        display: grid;
+        grid-auto-flow: column;
+        gap: $spacing-m;
+    }
+
+    &__add-calendars-select-item-color {
+        display: block;
+        width: $icon-size-s;
+        height: $icon-size-s;
+        border-radius: 50%;
+        content: '';
+    }
+}

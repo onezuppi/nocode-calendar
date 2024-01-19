@@ -1,0 +1,17 @@
+<div class="container" [events-range]="[data]">
+    <div class="container__title" [ngClass]="{ 'without-more': data.events.length <= 3 }">
+        <div class="container__events-all" *ngIf="data.events.length > 3">
+            <app-show-event-list-btn [events]="data.events">
+                Показать все {{ data.events.length }}
+            </app-show-event-list-btn>
+        </div>
+        <app-budge [isActive]="isToday" (click)="pgS.toDay(data.date)">
+            {{ data.date | dateFormat: 'DD' }}
+        </app-budge>
+    </div>
+    <div class="container__events">
+        <ng-container *ngFor="let event of data.events | slice: 0: 3; trackBy: tb">
+            <app-calendar-event class="container__event" event-overflow [event]="event"></app-calendar-event>
+        </ng-container>
+    </div>
+</div>

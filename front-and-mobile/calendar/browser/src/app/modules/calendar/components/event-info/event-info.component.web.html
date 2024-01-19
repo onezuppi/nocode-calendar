@@ -1,0 +1,83 @@
+<div class="info-event" *ngIf="event$ | async as model; else loader">
+    <div class="info-event__title">
+        <h3 class="info-event__title_name">{{ model.event.name }}</h3>
+        <div class="info-event__title_color" [ngStyle]="{ 'background-color': model.event.color }"></div>
+    </div>
+    <div class="info-event__calendar" *ngIf="model.calendar">
+        <h4>Календарь:</h4>
+        <span class="info-event__calendar-id">{{ model.calendar }}</span>
+    </div>
+    <div class="info-event__time">
+        <h4 class="info-event__time-title">Время</h4>
+        <div class="info-event__time-controls">{{ model.time }}</div>
+    </div>
+    <h4 class="info-event__user-title" *ngIf="model.users.length">Участники</h4>
+    <div class="info-event__users-container">
+        <div class="info-event__users">
+            <ng-container *ngFor="let user of model.users">
+                <app-calendar-user-avatar [name]="user.name"></app-calendar-user-avatar>
+            </ng-container>
+            <span *ngIf="model.users.length >= 3" [abHint]="users">Показать всех</span>
+            <ng-template #users>
+                <div *ngFor="let user of model.users">
+                    {{user.name}}
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div *ngIf="model.event.description || model.event.place || model.event.eventRecurrence" class="info-event__additional-data">
+        <div class="info-event__place" *ngIf="model.place">
+            <h4 class="info-event__additional-title">Место проведения:</h4>
+            <span>{{ model.place }}</span>
+        </div>
+
+        <div class="info-event__description" *ngIf="model.event.description">
+            <h4>Описание:</h4>
+            <span>{{ model.event.description }}</span>
+        </div>
+
+        <div class="info-event__remind" *ngIf="model.eventRecurrence">
+            <h4 class="info-event__additional-title">Повтор:</h4>
+            <span>{{ model.eventRecurrence }}</span>
+        </div>
+    </div>
+
+    <div class="info-event__buttons">
+        <ab-ui-button
+            *ngIf="model.isCreator && !isReadonly"
+            [icon]="{name: 'edit', position: 'left'}"
+            (abClick)="editEvent(model.event)"
+            [size]="'l'"
+        >
+            {{ 'Редактировать' }}
+        </ab-ui-button>
+        <ab-ui-button
+            *ngIf="model.isCreator && !isReadonly"
+            (abClick)="deleteEvent()"
+            [icon]="{name: 'trash', position: 'left'}"
+            [type]="'secondary'"
+            [size]="'l'"
+        >
+            {{ 'Удалить' }}
+        </ab-ui-button>
+    </div>
+</div>
+
+<ng-template #loader>
+    <div class="create-info-skeleton">
+        <div class="create-info-skeleton__title">
+            <div class="create-info-skeleton__title_name"></div>
+            <div class="create-info-skeleton__title_color"></div>
+        </div>
+        <div class="create-info-skeleton__calendar"></div>
+        <div class="create-info-skeleton__time-title"></div>
+        <div class="create-info-skeleton__time"></div>
+        <div class="create-info-skeleton__additional-data"></div>
+        <div class="create-info-skeleton__buttons">
+            <div class="create-info-skeleton__button"></div>
+            <div class="create-info-skeleton__button"></div>
+        </div>
+    </div>
+</ng-template>
+

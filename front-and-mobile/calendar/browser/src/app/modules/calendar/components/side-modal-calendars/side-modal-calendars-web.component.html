@@ -1,0 +1,56 @@
+<ab-side-bar-modal-layout *ngIf="userCalendarsService.isLoaded$ | async; else loader" [width]="20">
+    <div class="side-modal__sidebar-header" header>
+        <h2>Календари</h2>
+        <ab-svg
+            class="side-modal__sidebar-header-close"
+            iconPath="/assets/sprites/sprite.svg#x_medium"
+            (click)="closeModal()"
+            without-hover></ab-svg>
+    </div>
+    <div class="side-modal__button-list">
+        <ab-ui-button class="side-modal__add-button" [type]="'secondary'" (click)="showAddCalendar()"
+                      [icon]="{ name: 'edit', position: 'left' }">
+            Изменить
+        </ab-ui-button>
+        <ab-ui-button class="side-modal__add-button" [type]="'secondary'" ldng #l="ldng" (click)="l.watch(downloadCalendars())"
+                      [icon]="{ name: 'download', position: 'right' }" [isLoading]="l | async">
+            Скачать
+        </ab-ui-button>
+    </div>
+    <div class="side-modal__sidebar-body">
+        <div class="side-modal__add-calendars" *ngIf="isShowAddContainer" @SoftHeightAnimation>
+            <ab-multi-select-control class="side-modal__add-calendars-select" [model]="userCalendarsService.multiSelectUser">
+                <ab-multi-select-data-list *dataList>
+                    <ab-data-list-checkbox-item
+                        *ngFor="let item of userCalendarsService.calendars$ | async"
+                        [value]="item"
+                    >
+                        {{ item.name }}
+                    </ab-data-list-checkbox-item>
+                </ab-multi-select-data-list>
+            </ab-multi-select-control>
+            <div class="side-modal__selected-calendars" *ngFor="let item of userCalendarsService.multiSelectUser.getValue()">
+                {{ item.name }}
+            </div>
+            <div class="side-modal__add-calendars-button">
+                <ab-ui-button ldng #l="ldng" (click)="l.watch(saveCalendars())" isFullSize="true" [isLoading]="l | async">Сохранить</ab-ui-button>
+            </div>
+        </div>
+        <ab-checkbox-array [model]="userCalendarsService.calendarsCheckboxArray">
+        </ab-checkbox-array>
+
+        <ab-ui-button ldng #l="ldng" class="side-modal__save-button" (click)="l.watch(saveCurrentCalendars())" isFullSize="true"
+                      [isLoading]="l | async">
+            Сохранить
+        </ab-ui-button>
+    </div>
+</ab-side-bar-modal-layout>
+
+<ng-template #loader>
+    <ab-side-bar-modal-layout [width]="40">
+        <div class="side-modal__loader">
+            <ab-svg class="side-modal__loader-icon" without-hover
+                    iconPath="/assets/sprites/sprite.svg#loading"></ab-svg>
+        </div>
+    </ab-side-bar-modal-layout>
+</ng-template>

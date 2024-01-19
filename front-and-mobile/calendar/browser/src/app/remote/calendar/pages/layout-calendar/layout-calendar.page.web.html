@@ -1,0 +1,99 @@
+<div *ngIf="userCalendarsService.isLoaded$ | async; else loader">
+    <div class="calendar">
+        <div class="calendar__navbar">
+            <div class="calendar__search-block">
+                <ab-data-list-host class="calendar__search" [(open)]="openDropdownSearch">
+                    <ab-text-control [model]="userCalendarsService.searchViewModel"></ab-text-control>
+                    <ab-data-list *dataList>
+                        <ab-data-list-item *ngFor="let event of userCalendarsService.events$ | async" [value]="event" (click)="openEvent(event.value)">
+                            <div class="calendar__search-item">
+                                <div [style.background-color]="event.value.color" class="calendar__color-block"></div>
+                                <span class="calendar__event-name">{{event.name}}</span>
+                                <div class="calendar__time" *ngIf="!event.value.isAllDay">
+                                    {{ event.value.dateStartUtc | dateFormat: 'hh:mm' }}
+                                    -
+                                    {{ event.value.dateEndUtc | dateFormat : 'hh:mm' }}
+                                </div>
+                                <div  class="calendar__time" *ngIf="event.value.isAllDay">
+                                    {{ 'Весь день' }}
+                            </div>
+                        </div>
+                        </ab-data-list-item>
+                    </ab-data-list>
+                </ab-data-list-host>
+                <ab-ui-button [type]="'secondary'" (click)="openSideBarEditCalendar(template)"
+                        [icon]="{ 'name': 'calendar', 'position': 'right' }" >
+                    Календари
+                </ab-ui-button>
+            </div>
+            <div style="display: flex; justify-content: space-between">
+                <div class="calendar__navigation">
+                    <div class="calendar__navigation-title">
+                        {{ (pgS.range$ | async) | dateRange | translate }}
+                    </div>
+                    <div class="calendar__navigation-btns" keybrd>
+                        <app-budge (click)="pgS.step(-1)">
+                            <ab-svg  without-hover iconPath="/assets/sprites/sprite.svg#arrow-app-left"></ab-svg>
+                        </app-budge>
+                        <div class="calendar__navigation-now" (click)="pgS.toDay()">Сегодня</div>
+                        <app-budge  (click)="pgS.step(1)">
+                            <ab-svg without-hover iconPath="/assets/sprites/sprite.svg#arrow-app-right"></ab-svg>
+                        </app-budge>
+                    </div>
+                </div>
+                <div class="calendar__controls">
+                    <ab-select-control [model]="pgS.selectView"></ab-select-control>
+                    <ab-ui-multi-button (abClick)="createEvent()" [dropDown]="dropDownTemplate"  type="secondary" [icon]="{ name: 'plus', position: 'left' }">
+                        Создать
+                    </ab-ui-multi-button>
+                </div>
+            </div>
+        </div>
+        <div class="calendar__body" >
+            <app-calendar-table [events]="(pgS.events$ | async)"
+                                [view]="pgS.view$ | async"
+                                [isLoading]="eventManager.isLoading$ | async"
+                                [cellHeight]="(pgS.view$ | async) === 'month' ? 150: 50"
+                                [showNowLine]="(pgS.view$ | async) !== 'month'"
+                                [titleColumnWidth]="50"
+                                [startWorkDay]="8"
+                                [endWorkDay]="20"
+                                [rowsInAllDay]="6">
+            </app-calendar-table>
+        </div>
+    </div>
+</div>
+
+<ng-template #dropDownTemplate>
+    <div class="calendar__dropdown">
+        <div class="calendar__dropdown-button" (click)="createEvent()">Событие</div>
+        <div class="calendar__dropdown-button" (click)="createCalendar()">Календарь</div>
+        <div class="calendar__dropdown-button" (click)="createGroup()">Группу</div>
+        <ab-data-list-host
+            [(open)]="openDropdown"
+            [abModalDropdownPaddingX]="-244"
+            [abModalDropdownPaddingY]="-40"
+        >
+            <div class="calendar__dropdown-button">Редактировать</div>
+            <ab-data-list *dataList>
+                <ab-data-list-item (click)="createCalendar(true)">
+                    Календарь
+                </ab-data-list-item>
+                <ab-data-list-item (click)="createGroup(true)">
+                    Группу
+                </ab-data-list-item>
+            </ab-data-list>
+        </ab-data-list-host>
+    </div>
+</ng-template>
+
+<ng-template #template>
+    <app-side-modal-calendars></app-side-modal-calendars>
+</ng-template>
+
+<ng-template #loader>
+    <div class="calendar__loader">
+        <ab-svg class="calendar__loader-icon" without-hover
+                iconPath="/assets/sprites/sprite.svg#loading"></ab-svg>
+    </div>
+</ng-template>

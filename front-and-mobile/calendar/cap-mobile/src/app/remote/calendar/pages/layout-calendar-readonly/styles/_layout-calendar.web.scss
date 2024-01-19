@@ -1,0 +1,72 @@
+@use "common-styles/common-styles" as *;
+
+.calendar {
+    padding: 100px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: $bg-page;
+    border-radius: 8px;
+
+    &__body {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    &__navbar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__navbar-tabs {
+        width: max-content;
+        margin-bottom: $spacing-2l;
+    }
+
+    &__navigation {
+        display: flex;
+        gap: $spacing-s;
+        align-items: center;
+    }
+
+    &__navigation-btns {
+        display: flex;
+        align-items: center;
+        gap: $spacing-s;
+    }
+
+    &__navigation-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: $secondary;
+        width: $icon-size-l;
+        height: $icon-size-l;
+        cursor: pointer;
+    }
+
+    &__navigation-now {
+        color: $primary;
+        cursor: pointer;
+    }
+
+    &__dropdown {
+        background-color: $bg-global;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $line-border;
+        border-radius: 4px;
+        padding: $spacing-s 0;
+    }
+
+    &__dropdown-button {
+        width: 150px;
+        padding: $spacing-s;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $bg-row-hover;
+        }
+    }
+}

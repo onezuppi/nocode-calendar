@@ -1,0 +1,13 @@
+@use "common-styles/common-styles" as *;
+
+:host {
+    position: relative;
+}
+
+.row-title {
+    position: absolute;
+    font-size: 10px;
+    color: $text-tertiary;
+    top: -$spacing-s;
+    right: 5%;
+}

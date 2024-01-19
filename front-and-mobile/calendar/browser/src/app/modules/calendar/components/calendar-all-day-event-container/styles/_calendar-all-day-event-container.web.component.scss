@@ -1,0 +1,41 @@
+@use "common-styles/common-styles" as *;
+
+
+:host {
+    display: block;
+    position: relative;
+    border: 1px solid $line;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding-bottom: $spacing-2l;
+
+    &.week {
+        background: repeating-linear-gradient(to right, transparent 0%, transparent 14%, #e7ebf4 14%, #e7ebf4 14.28%);
+    //linear-gradient(to right, transparent 0, transparent 14%, #e7ebf4 14%, #e7ebf4 14.25%, transparent 14.25%, transparent 28.35%, #e7ebf4 28.35%, #e7ebf4 28.6%, transparent 28.6%, transparent 42.57%, #e7ebf4 42.57%, #e7ebf4 42.85%);
+    }
+}
+
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-auto-flow: row dense;
+    overflow: hidden;
+
+    &.week {
+        grid-template: repeat(var(--calendar-line-count), 1fr) / repeat(7, 1fr);
+    }
+
+    &.day {
+        grid-template: repeat(var(--calendar-line-count), 1fr) / repeat(1, 1fr);
+    }
+
+    &__show-more {
+        position: absolute;
+        @include P10;
+        cursor: pointer;
+        bottom: 0;
+        text-align: center;
+    }
+}

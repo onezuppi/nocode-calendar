@@ -1,0 +1,14 @@
+@use "common-styles/common-styles" as *;
+
+.calendar-cell {
+    height: var(--ab-calendar-cell-height);
+    border: 1px solid $line;
+
+    &.default {
+
+    }
+
+    &.weekend, &.workout {
+        background-color: $bg-block;
+    }
+}

@@ -1,0 +1,29 @@
+@use "common-styles/common-styles" as *;
+
+.create-calendar-skeleton {
+    &__control {
+        display: block;
+        padding-bottom: $spacing-l;
+    }
+
+    &__control-title {
+        @include skeleton-elem(10%, 24px, $skeleton-primary);
+        margin-bottom: $spacing-s;
+    }
+
+    &__control-value {
+        @include skeleton-elem(100%, 40px, $skeleton-primary);
+    }
+
+
+    &__control-buttons {
+        width: 100%;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    &__control-button {
+        @include skeleton-elem(20%, 48px, $skeleton-primary);
+    }
+}

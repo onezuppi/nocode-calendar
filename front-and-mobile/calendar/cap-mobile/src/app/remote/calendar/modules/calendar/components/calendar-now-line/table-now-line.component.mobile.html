@@ -1,0 +1,7 @@
+<div class="now" *ngIf="now" [style]="{ 'width': width + 'px', 'left': left + 'px' }">
+    <div class="now__time">
+        {{ now[0] }}:{{ now[1] < 10 ? '0' + now[1]: now[1] }}
+    </div>
+    <div class="now__line">
+    </div>
+</div>

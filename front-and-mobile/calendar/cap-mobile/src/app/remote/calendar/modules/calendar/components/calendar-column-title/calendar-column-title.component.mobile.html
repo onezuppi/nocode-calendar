@@ -1,0 +1,7 @@
+<div class="column-title" [ngClass]="[this.tableData.view]">
+    <div>{{ day | translate }}</div>
+    <app-budge *ngIf="data.date && this.tableData.view !== 'month'"
+               [isActive]="isToday" (click)="pgS.toDay(data.date)">
+        {{ data.date | dateFormat : 'DD'  }}
+    </app-budge>
+</div>

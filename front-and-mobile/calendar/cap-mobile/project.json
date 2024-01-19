@@ -1,0 +1,223 @@
+{
+  "name": "calendar-mobile-app",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "demo",
+  "sourceRoot": "apps/widget-calendar/calendar/cap-mobile/src",
+  "tags": [
+    "demo",
+    "mobile"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "allowedCommonJsDependencies": [
+          "aes-js",
+          "js-crypto-rsa",
+          "xmlToJsonTs",
+          "crypto-browserify",
+          "dayjs"
+        ],
+        "outputPath": "dist/apps/calendar-mobile-app",
+        "index": "apps/widget-calendar/calendar/cap-mobile/src/index.html",
+        "main": "apps/widget-calendar/calendar/cap-mobile/src/main.ts",
+        "polyfills": "apps/widget-calendar/calendar/cap-mobile/src/polyfills.ts",
+        "tsConfig": "apps/widget-calendar/calendar/cap-mobile/tsconfig.app.json",
+        "assets": [
+          "apps/widget-calendar/calendar/cap-mobile/src/assets/icon/favicon.png",
+          "apps/widget-calendar/calendar/cap-mobile/src/assets/shapes.svg",
+          "apps/widget-calendar/calendar/cap-mobile/src/assets",
+          {
+            "input": "node_modules/@abanking/style/fonts",
+            "glob": "**.*",
+            "output": "/assets/fonts"
+          },
+            {
+                "input": "libs/base-multi-language/common/assets/i18n",
+                "glob": "**/*",
+                "output": "assets/i18n/feature"
+            },
+            {
+                "input": "node_modules/@abanking/i18n",
+                "glob": "**/*",
+                "output": "assets/i18n/feature"
+            }
+        ],
+        "styles": [
+          "apps/widget-calendar/calendar/cap-mobile/src/global.scss",
+          "apps/widget-calendar/calendar/cap-mobile/src/styles.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+              "node_modules/@abanking/style",
+              "node_modules/@abanking/style-mobile",
+              "node_modules/@abanking/new-modal-style",
+              "src/"
+          ]
+        },
+        "scripts": []
+      },
+      "dependsOn": [
+        {
+          "target": "sprite-build-all",
+          "params": "forward"
+        }
+      ],
+      "configurations": {
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "sprite-build-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+            "nx run calendar-mobile-app:copy-svg",
+            "nx run calendar-mobile-app:svg-sprite",
+            "nx run calendar-mobile-app:svg-color-sprite"
+        ],
+        "parallel": false
+      }
+    },
+      "copy-svg": {
+          "executor": "nx:run-commands",
+          "options": {
+              "commands": [
+                  "copyfiles -a -u -f -V \"apps/widget-calendar/calendar/cap-mobile/src/assets/icons/**/*.svg\" apps/widget-calendar/calendar/cap-mobile/dist/icons",
+                  "copyfiles -a -s -u -f -V \"libs/base-content/common/assets/sprites/src/*\" apps/widget-calendar/calendar/cap-mobile/dist/icons",
+                  "copyfiles -a -u -f -V \"apps/widget-calendar/calendar/cap-mobile/src/src/assets/icons-color/**/*.svg\" apps/widget-calendar/calendar/cap-mobile/dist/icons-color",
+                  "copyfiles -a -s -u -f -V \"libs/base-content/common/assets/sprites/color/*\" apps/widget-calendar/calendar/cap-mobile/dist/icons-color"
+              ],
+              "parallel": false
+          }
+      },
+      "svg-sprite": {
+          "executor": "nx:run-commands",
+          "options": {
+              "command": "svg2sprite apps/widget-calendar/calendar/cap-mobile/dist/icons apps/widget-calendar/calendar/cap-mobile/src/assets/sprites/sprite.svg --stripAttrs fill --stripAttrs id"
+          }
+      },
+      "svg-color-sprite": {
+          "executor": "nx:run-commands",
+          "options": {
+              "command": "svg2sprite apps/widget-calendar/calendar/cap-mobile/dist/icons-color apps/widget-calendar/calendar/cap-mobile/src/assets/sprites/sprite-color.svg"
+          },
+          "parallel": false
+      },
+    "add-platform": {
+      "executor": "@service-front/abanking-plugin:capacitor",
+      "configurations": {
+        "android": {
+          "cmd": "add android"
+        },
+        "ios": {
+          "cmd": "add ios"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "calendar-mobile-app:build:development",
+            "proxyConfig": "apps/widget-calendar/calendar/cap-mobile/src/proxy.conf.json"
+        }
+      },
+        "options": {
+            "ssl": true
+        },
+      "defaultConfiguration": "development",
+        "dependsOn": [
+            "sprite-build-all"
+        ]
+    },
+    "android-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run calendar-mobile-app:build",
+          "nx run calendar-mobile-app:sync --configuration=android",
+          "nx run calendar-mobile-app:copy --configuration=android",
+          "nx run calendar-mobile-app:open --configuration=android"
+        ],
+        "parallel": false
+      },
+      "dependsOn": [
+        "^android-build"
+      ],
+      "defaultConfiguration": "development"
+    },
+    "ios-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run calendar-mobile-app:build",
+          "nx run calendar-mobile-app:sync --configuration=ios",
+          "nx run calendar-mobile-app:copy --configuration=ios",
+          "nx run calendar-mobile-app:open --configuration=ios"
+        ],
+        "parallel": false
+      },
+      "dependsOn": [
+        "^ios-build"
+      ],
+      "defaultConfiguration": "development"
+    },
+    "sync": {
+      "executor": "@service-front/abanking-plugin:capacitor",
+      "configurations": {
+        "android": {
+          "cmd": "sync android"
+        },
+        "ios": {
+          "cmd": "sync ios"
+        }
+      }
+    },
+    "copy": {
+      "executor": "@service-front/abanking-plugin:capacitor",
+      "configurations": {
+        "android": {
+          "cmd": "copy android"
+        },
+        "ios": {
+          "cmd": "copy ios"
+        }
+      }
+    },
+    "open": {
+      "executor": "@service-front/abanking-plugin:capacitor",
+      "configurations": {
+        "android": {
+          "cmd": "open android"
+        },
+        "ios": {
+          "cmd": "open ios"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/widget-calendar/calendar/cap-mobile/**/*.ts",
+          "apps/widget-calendar/calendar/cap-mobile/**/*.html"
+        ]
+      }
+    }
+  }
+}

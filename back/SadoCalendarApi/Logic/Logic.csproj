@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Libs\Sado\SadoCommonLib\SadoCommonLib.csproj" />
+        <ProjectReference Include="..\..\..\..\Libs\Shared\CoreLib\CoreLib.csproj" />
+        <ProjectReference Include="..\Dal\Dal.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Ical.Net" Version="4.2.0" />
+    </ItemGroup>
+
+</Project>

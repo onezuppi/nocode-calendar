@@ -1,0 +1,19 @@
+@use "common-styles/common-styles" as *;
+
+.calendar-budge {
+    width: $icon-size-l;
+    height: $icon-size-l;
+    background: #F6F8F9;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $line;
+    color: $text-primary;
+
+    &.is-active {
+        background: $primary;
+        color: white;
+    }
+}

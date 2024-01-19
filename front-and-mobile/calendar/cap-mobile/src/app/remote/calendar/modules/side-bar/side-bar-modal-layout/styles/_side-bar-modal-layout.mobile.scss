@@ -1,0 +1,11 @@
+@use "common-styles/common-styles" as *;
+
+.side-bar-modal-layout {
+    overflow: hidden;
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    background-color: var(--color-global);
+    width: 100%;
+}

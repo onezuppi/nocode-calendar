@@ -1,0 +1,51 @@
+@use "common-styles/common-styles" as *;
+
+.create-info-skeleton {
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid $line;
+        padding-bottom: $spacing-l;
+        margin-bottom: $spacing-l;
+
+        &_name {
+            @include skeleton-elem(70%, 20px, $skeleton-primary);
+            display: block;
+            margin-right: $spacing-l;
+        }
+
+        &_color {
+            @include skeleton-elem(8.5%, 20px, $skeleton-primary);
+        }
+    }
+
+    &__time-title {
+        @include skeleton-elem(10%, 20px, $skeleton-primary);
+        margin-bottom: $spacing-l;
+    }
+
+    &__time {
+        @include skeleton-elem(75%, 20px, $skeleton-primary);
+        margin-bottom: $spacing-l;
+    }
+
+    &__additional-data {
+        @include skeleton-elem(100%, 105px, $skeleton-primary);
+        margin-bottom: $spacing-l;
+    }
+
+    &__buttons {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    &__button {
+        @include skeleton-elem(15%, 50px, $skeleton-primary);
+    }
+
+    &__calendar {
+        @include skeleton-elem(60%, 20px, $skeleton-primary);
+        margin-bottom: $spacing-s;
+    }
+}

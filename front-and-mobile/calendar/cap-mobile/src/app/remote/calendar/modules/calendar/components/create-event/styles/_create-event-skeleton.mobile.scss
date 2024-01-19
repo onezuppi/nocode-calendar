@@ -1,0 +1,85 @@
+@use "common-styles/common-styles" as *;
+
+.create-event-skeleton {
+    &__title {
+        border-bottom: 1px solid $line;
+        padding-bottom: $spacing-l;
+        margin-bottom: $spacing-l;
+        &_name {
+            @include skeleton-elem(35%, 46px, $skeleton-primary);
+            display: block;
+        }
+    }
+
+    &__controls-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $spacing-l;
+
+        &_name {
+            @include skeleton-elem(70%, 40px, $skeleton-primary);
+            display: block;
+            margin-right: $spacing-l;
+        }
+
+        &_color {
+            @include skeleton-elem(30%, 40px, $skeleton-primary);
+        }
+    }
+
+    &__time-title {
+        @include skeleton-elem(10%, 20px, $skeleton-primary);
+        margin-bottom: $spacing-s;
+    }
+
+    &__time-controls {
+        display: flex;
+        align-items: center;
+        margin-bottom: $spacing-l;
+
+        &_date {
+            @include skeleton-elem(25%, 40px, $skeleton-primary);
+            margin-right: $spacing-m;
+        }
+
+        &_time {
+            @include skeleton-elem(8.3%, 40px, $skeleton-primary);
+            margin-left: $spacing-s;
+            margin-right: $spacing-m;
+            min-width: 100px;
+        }
+
+        &_all-day {
+            @include skeleton-elem(4.3%, 20px, $skeleton-primary);
+            margin-right: $spacing-s;
+        }
+
+        &_all-day-title {
+            @include skeleton-elem(14%, 14px, $skeleton-primary);
+            margin-right: $spacing-l;
+        }
+    }
+
+    &__accordeon {
+        @include skeleton-elem(100%, 60px, $skeleton-primary);
+        margin-bottom: $spacing-l;
+    }
+
+    &__control {
+        @include skeleton-elem(100%, 40px, $skeleton-primary);
+        display: block;
+        margin-bottom: $spacing-l;
+    }
+
+    &__buttons {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        border-top: 1px solid $line;
+        padding-top: $spacing-l;
+    }
+
+    &__button {
+        @include skeleton-elem(15%, 50px, $skeleton-primary);
+    }
+}

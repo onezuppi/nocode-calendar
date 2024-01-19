@@ -1,0 +1,30 @@
+@use "common-styles/common-styles" as *;
+
+.create-group {
+    &__control {
+        display: block;
+        padding-bottom: $spacing-l;
+    }
+
+    &__buttons {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    &__data-list {
+        ::ng-deep {
+            .data-list-item__block {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    &__color-block {
+        border-radius: 4px;
+        height: $spacing-m;
+        width: $spacing-m;
+        margin-right: $spacing-s;
+    }
+}

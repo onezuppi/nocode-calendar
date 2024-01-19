@@ -1,0 +1,44 @@
+@use "common-styles/common-styles" as *;
+
+:host {
+    position: absolute;
+    width: 100%;
+}
+
+$now-line-color: red;
+
+.now {
+    position: relative;
+
+    &__time-container {
+        position: relative;
+    }
+
+    &__time {
+        position: absolute;
+        left: -$spacing-3xl;
+        top: -$spacing-m;
+        color: $now-line-color;
+        font-size: 12px;
+    }
+
+    &__line {
+        height: 1px;
+        border: 1px solid $now-line-color;
+        display: block;
+        content: "";
+
+        &:before {
+            $size: 10px;
+            display: block;
+            content: "";
+            height: $size;
+            width: $size;
+            border-radius: 50%;
+            background: $now-line-color;
+            margin-left: calc($size / -2);
+            margin-top: calc($size / -2);;
+        }
+    }
+
+}

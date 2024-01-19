@@ -1,0 +1,92 @@
+@use "common-styles/common-styles" as *;
+
+:host {
+    width: 100%;
+    padding: $spacing-xs;
+    position: relative;
+
+    &.from {
+        padding-left: $spacing-m;
+
+        &:before {
+            content: "";
+            border-style: solid;
+            border-width: $spacing-m 0px $spacing-m $spacing-m;
+            border-color: var(--event-color) var(--event-color) var(--event-color) transparent;
+            position: absolute;
+            left: 0;
+        }
+    }
+
+    &.to {
+        padding-right: $spacing-m;
+
+        &:after {
+            content: "";
+            height: 0;
+            width: 0;
+            top: $spacing-xs;
+            left: calc(100% - $spacing-m);
+            position: absolute;
+            border-left: $spacing-m solid var(--event-color);
+            border-bottom: $spacing-m solid transparent;
+            border-top: $spacing-m solid transparent;
+        }
+    }
+
+    &.from .event {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &.to .event {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.event {
+    height: 100%;
+    border-radius: 4px;
+    padding: 0 $spacing-s;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--event-color);
+
+    &__container {
+        &.is-allDay {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &__name {
+        font-weight: 400;
+        color: $text-secondary;
+        @include text-ellipsis;
+    }
+
+    &__time {
+        @include P8-medium;
+        font-weight: 300;
+        color: $text-tertiary;
+
+        &.dark {
+            color: $text-tertiary;
+            text-shadow: 1px 0 1px #000;
+        }
+
+        &.light {
+            color: black;
+        }
+    }
+
+    &__just-start {
+        @include P8-medium;
+        display: flex;
+        align-items: center;
+        gap: $spacing-s;
+    }
+}
+

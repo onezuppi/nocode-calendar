@@ -1,0 +1,8 @@
+{
+  "/calendar-api": {
+    "target": "https://provider.calendar-stable.k8s.corp.artsofte.ru/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

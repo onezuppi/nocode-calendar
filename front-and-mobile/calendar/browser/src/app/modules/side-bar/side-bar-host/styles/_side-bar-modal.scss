@@ -1,0 +1,10 @@
+@use './common-styles/common-styles' as *;
+
+.side-bar-modal {
+    position: relative;
+
+    // для корректно анимации закрытия
+    &.is-last {
+        z-index: 1;
+    }
+}

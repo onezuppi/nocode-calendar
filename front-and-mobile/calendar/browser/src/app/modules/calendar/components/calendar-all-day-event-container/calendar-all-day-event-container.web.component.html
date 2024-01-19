@@ -1,0 +1,25 @@
+<div class="container" [ngClass]="tableData.view"
+    [style.--calendar-line-count]="tableData.rowsInAllDay"
+    #container>
+    <ng-container [events-range]="data.events">
+        <ng-container event-counter [events]="data.events" #counter="eventCounter">
+            <ng-container *ngFor="let day of counter.events; let dayN = index">
+                <ng-container *ngFor="let event of day.events; let evN = index">
+                    <ng-container *ngIf="counter.count[dayN].indexOf(event) < tableData.rowsInAllDay">
+                        <app-calendar-event event-width event-overflow [event]="event" class="container__event"
+                                            [parent]="container">
+                        </app-calendar-event>
+                    </ng-container>
+                </ng-container>
+
+                <div class="container__show-more" *ngIf="counter.count[dayN].length > tableData.rowsInAllDay"
+                     [style.left.%]="getLeft(dayN)"
+                     [style.width.%]="btnWidth">
+                    <app-show-event-list-btn [events]="counter.count[dayN]">
+                        Показать все {{ counter.count[dayN].length }}
+                    </app-show-event-list-btn>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</div>

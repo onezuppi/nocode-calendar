@@ -1,0 +1,59 @@
+<div class="calendar-table"
+    *ngIf="events && !isLoading; else loader"
+    [style.--ab-calendar-columns]="size.w"
+    [style.--ab-calendar-rows]="size.h"
+    [style.--ab-calendar-title-column-size.px]="titleColumnWidth"
+    [style.--ab-calendar-cell-height.px]="tableData.cellHeight"
+    [ngClass]="this.tableData.view">
+    <div class="calendar-table__head" @fadeInOutAnimation>
+        <div class="calendar-table__head-columns" [ngClass]="{ 'with-fake': titleColumnWidth }">
+            <ng-container *abRepeat="size.w; let i = index">
+                <ng-container *abOutletComponent="columnTitleContext(events[i], i)">
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="calendar-table__body" @fadeInOutAnimation>
+        <ab-ui-scrollable>
+            <div abScrollableViewport>
+                <div class="calendar-table__body-scrollable">
+                    <div class="calendar-table__all-day" [ngClass]="{ 'with-fake': titleColumnWidth }">
+                       <ng-container *ngIf="components.allDayContainer">
+                           <ng-container *ngIf="(events | eFilter: true) as evs">
+                               <ng-container *abOutletComponent="allDayContainerContext(evs)"></ng-container>
+                           </ng-container>
+                       </ng-container>
+                    </div>
+                    <div class="calendar-table__columns" [ngClass]="{ 'title': titleColumnWidth }">
+                        <div class="calendar-table__column" *ngIf="titleColumnWidth">
+                            <ng-container *abRepeat="size.h; let i = index">
+                                <ng-container *abOutletComponent="rowTitleContext(i)">
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                        <ng-container *ngFor="let container of (components.allDayContainer ? (events | eFilter) : events)">
+                            <div class="calendar-table__column">
+                                <ng-container *abOutletComponent="containerContext(container)">
+                                </ng-container>
+                                <ng-container *ngIf="components.cellComponent">
+                                    <ng-container *abRepeat="size.h; let i = index; ">
+                                        <ng-container *abOutletComponent="cellContext(container.date, i)">
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <app-now-line *ngIf="this.tableData.showNowLine" [dayCount]="this.size.w"></app-now-line>
+                    </div>
+                </div>
+            </div>
+        </ab-ui-scrollable>
+    </div>
+</div>
+
+<ng-template #loader>
+    <div class="calendar-table__loader">
+        <ab-svg class="calendar-table__loader-icon" without-hover
+                iconPath="/assets/sprites/sprite.svg#loading"></ab-svg>
+    </div>
+</ng-template>

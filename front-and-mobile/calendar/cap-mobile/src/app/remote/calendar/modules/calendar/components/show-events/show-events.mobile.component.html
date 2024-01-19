@@ -1,0 +1,9 @@
+<ab-ui-scrollable>
+    <div abScrollableViewport class="show-events">
+        <ng-container *ngFor="let event of events">
+            <app-calendar-event class="show-events__event" [event]="event" event-overflow
+                                (click)="showInfo(event)" showDateRange="true">
+            </app-calendar-event>
+        </ng-container>
+    </div>
+</ab-ui-scrollable>

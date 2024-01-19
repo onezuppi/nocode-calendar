@@ -1,0 +1,11 @@
+@use "common-styles/common-styles" as *;
+
+.show-events {
+    display: grid;
+    gap: $spacing-xs;
+
+    &__event {
+        display: block;
+        height: 32px;
+    }
+}

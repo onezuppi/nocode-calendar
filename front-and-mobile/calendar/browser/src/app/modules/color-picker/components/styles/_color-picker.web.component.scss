@@ -1,0 +1,19 @@
+@use "common-styles/common-styles" as *;
+
+.color-picker {
+    &__color-block {
+        border-radius: 4px;
+        height: $spacing-m;
+        width: $spacing-m;
+        margin-right: $spacing-s;
+    }
+
+    &__data-list {
+        ::ng-deep {
+            .data-list-item__block {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}

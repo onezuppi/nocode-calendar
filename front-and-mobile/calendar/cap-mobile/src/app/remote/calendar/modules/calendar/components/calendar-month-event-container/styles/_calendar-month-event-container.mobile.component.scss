@@ -1,0 +1,40 @@
+@use "common-styles/common-styles" as *;
+
+:host {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $line;
+
+    &.is-other-month {
+        background: $bg-block;
+    }
+}
+
+.container {
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacing-s $spacing-s $spacing-xs;
+
+        &.without-more {
+            justify-content: flex-end;
+        }
+    }
+
+    &__events-all {
+        @include P12-medium;
+        color: $primary;
+        cursor: pointer;
+    }
+
+    &__events {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__event {
+        height: 32px;
+    }
+}

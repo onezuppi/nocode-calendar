@@ -1,0 +1,106 @@
+@use "common-styles/common-styles" as *;
+
+.create-event {
+    &__title {
+        border-bottom: 1px solid $line;
+        padding-bottom: $spacing-l;
+        margin-bottom: $spacing-l;
+    }
+
+    &__control-name {
+        @include make-col-ready();
+        display: flex;
+        margin-bottom: $spacing-l;
+        padding-right: 0;
+        padding-left: 0;
+
+        &_name {
+            @include make-col(9, 12);
+            display: block;
+            padding-right: $spacing-l;
+        }
+
+        &_color {
+            @include make-col(3, 12);
+        }
+    }
+
+    &__time-title {
+        margin-bottom: $spacing-xs;
+        display: block;
+    }
+
+    &__time {
+        display: block;
+        padding-bottom: $spacing-l;
+    }
+
+    &__time-controls {
+        @include make-col-ready();
+        display: flex;
+        align-items: center;
+        padding-left: 0;
+
+        &_date {
+            @include make-col(2, 8);
+        }
+
+        &_time {
+            @include make-col(1, 12);
+            padding-left: $spacing-s;
+            padding-right: $spacing-s;
+            min-width: 100px;
+        }
+
+        &_all-day {
+            @include make-col(2, 12);
+            margin-left: $spacing-m;
+        }
+    }
+
+    &__dash {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    &__accordeon {
+        ::ng-deep {
+            .accordeon-item {
+                padding: 1px;
+            }
+        }
+    }
+
+    &__control {
+        display: block;
+        padding-bottom: $spacing-l;
+    }
+
+    &__buttons {
+        border-top: 1px solid $line;
+        padding-top: $spacing-l;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    &__data-list {
+        ::ng-deep {
+            .data-list-item__block {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    &__color-block {
+        border-radius: 4px;
+        height: $spacing-m;
+        width: $spacing-m;
+        margin-right: $spacing-s;
+    }
+
+    &__group-name {
+        @include P16-medium;
+    }
+}

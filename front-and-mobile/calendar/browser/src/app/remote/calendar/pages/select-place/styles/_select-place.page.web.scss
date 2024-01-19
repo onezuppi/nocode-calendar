@@ -1,0 +1,36 @@
+@use "common-styles/common-styles" as *;
+
+.select-place {
+    background-color: $bg-page;
+
+    &__block {
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+    &__no-place {
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: $bg-block;
+    }
+
+    &__item {
+        @include P16-medium;
+        background-color: $skeleton-primary;
+        margin-bottom: $spacing-l;
+        color: $link-primary;
+        padding: $spacing-xs $spacing-s;
+        display: flex;
+        justify-content: center;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    &__title {
+        margin-bottom: $spacing-2l;
+    }
+}

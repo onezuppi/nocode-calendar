@@ -1,0 +1,32 @@
+@use "common-styles/common-styles" as *;
+
+.column-title {
+    @include P14-medium;
+
+    display: flex;
+    padding-top: $spacing-2xl;
+    padding-bottom: $spacing-s;
+    border-bottom: 1px solid $line;
+
+    @media(min-width: $breakpoint-min) and (max-width: $breakpoint-xxxxl-max) {
+        padding-top: $spacing-l;
+    }
+
+    &.day {
+        align-items: center;
+        justify-content: flex-start;
+        gap: $spacing-l;
+    }
+
+    &.week {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.month {
+        align-items: center;
+        justify-content: flex-end;
+        margin-right: $spacing-m;
+    }
+}

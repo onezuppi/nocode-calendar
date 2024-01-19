@@ -1,0 +1,19 @@
+<div @sideBarAnimation>
+    <div
+        #modalLayout
+        class="side-bar-modal-layout"
+        [ngStyle]="{'width': width + '%'}"
+    >
+        <div class="dialog-modal-layout__header">
+            <ng-content select="[header]"></ng-content>
+        </div>
+        <ab-ui-scrollable class="dialog-modal-layout__content-wrapper">
+            <div
+                class="dialog-modal-layout__content"
+                abScrollableViewport
+            >
+                <ng-content></ng-content>
+            </div>
+        </ab-ui-scrollable>
+    </div>
+</div>

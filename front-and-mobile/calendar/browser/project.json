@@ -1,0 +1,174 @@
+{
+    "name": "widget-calendar-calendar-browser",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/widget-calendar/calendar/browser/src",
+    "prefix": "service-front",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/angular:webpack-browser",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "options": {
+                "outputPath": "dist/apps/widget-calendar/calendar/browser",
+                "index": "apps/widget-calendar/calendar/browser/src/index.html",
+                "main": "apps/widget-calendar/calendar/browser/src/main.ts",
+                "polyfills": "apps/widget-calendar/calendar/browser/src/polyfills.ts",
+                "tsConfig": "apps/widget-calendar/calendar/browser/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "assets": [
+                    "apps/widget-calendar/calendar/browser/src/favicon.ico",
+                    "apps/widget-calendar/calendar/browser/src/assets",
+                    {
+                        "input": "libs/base-multi-language/common/assets/i18n",
+                        "glob": "**/*",
+                        "output": "assets/i18n/feature"
+                    },
+                    {
+                        "input": "node_modules/@abanking/i18n",
+                        "glob": "**/*",
+                        "output": "assets/i18n/feature"
+                    }
+                ],
+                "styles": [
+                    "apps/widget-calendar/calendar/browser/src/styles.scss"
+                ],
+                "stylePreprocessorOptions": {
+                    "includePaths": [
+                        "node_modules/@abanking/style",
+                        "node_modules/@abanking/new-modal-style",
+                        "src/"
+                    ]
+                },
+                "scripts": [],
+                "customWebpackConfig": {
+                    "path": "apps/widget-calendar/calendar/browser/webpack.config.js"
+                },
+                "commonChunk": false
+            },
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "10mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "1mb",
+                            "maximumError": "10mb"
+                        }
+                    ],
+                    "outputHashing": "all",
+                    "customWebpackConfig": {
+                        "path": "apps/widget-calendar/calendar/browser/webpack.prod.config.js"
+                    }
+                },
+                "development": {
+                    "buildOptimizer": false,
+                    "optimization": false,
+                    "vendorChunk": true,
+                    "extractLicenses": false,
+                    "sourceMap": true,
+                    "namedChunks": true
+                }
+            },
+            "dependsOn": [
+                "^serve",
+                "sprite-build-all"
+            ],
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "executor": "@nrwl/angular:webpack-dev-server",
+            "configurations": {
+                "production": {
+                    "browserTarget": "widget-calendar-calendar-browser:build:production"
+                },
+                "development": {
+                    "browserTarget": "widget-calendar-calendar-browser:build:development",
+                    "proxyConfig": "apps/widget-calendar/calendar/browser/src/proxy.conf.json"
+                }
+            },
+            "defaultConfiguration": "development",
+            "options": {
+                "port": 4210,
+                "publicHost": "http://localhost:4210",
+                "ssl": true
+            },
+            "dependsOn": [
+                "^serve",
+                "sprite-build-all"
+            ]
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": [
+                "{options.outputFile}"
+            ],
+            "options": {
+                "lintFilePatterns": [
+                    "apps/widget-calendar/calendar/browser/**/*.ts",
+                    "apps/widget-calendar/calendar/browser/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+                "jestConfig": "apps/widget-calendar/calendar/browser/jest.config.ts",
+                "passWithNoTests": true
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
+        },
+        "sprite-build-all": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "nx run widget-calendar-calendar-browser:copy-svg",
+                    "nx run widget-calendar-calendar-browser:svg-sprite",
+                    "nx run widget-calendar-calendar-browser:svg-color-sprite"
+                ],
+                "parallel": false
+            }
+        },
+        "copy-svg": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "copyfiles -a -u -f -V \"apps/widget-calendar/calendar/browser/src/assets/icons/**/*.svg\" apps/widget-calendar/calendar/browser/dist/icons",
+                    "copyfiles -a -s -u -f -V \"libs/base-content/common/assets/sprites/src/*\" apps/widget-calendar/calendar/browser/dist/icons",
+                    "copyfiles -a -u -f -V \"apps/widget-calendar/calendar/browser/src/assets/icons-color/**/*.svg\" apps/widget-calendar/calendar/browser/dist/icons-color",
+                    "copyfiles -a -s -u -f -V \"libs/base-content/common/assets/sprites/color/*\" apps/widget-calendar/calendar/browser/dist/icons-color"
+                ],
+                "parallel": false
+            }
+        },
+        "svg-sprite": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "svg2sprite apps/widget-calendar/calendar/browser/dist/icons apps/widget-calendar/calendar/browser/src/assets/sprites/sprite.svg --stripAttrs fill --stripAttrs id"
+            }
+        },
+        "svg-color-sprite": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "svg2sprite apps/widget-calendar/calendar/browser/dist/icons-color apps/widget-calendar/calendar/browser/src/assets/sprites/sprite-color.svg"
+            },
+            "parallel": false
+        }
+    },
+    "tags": [
+        "web"
+    ]
+}

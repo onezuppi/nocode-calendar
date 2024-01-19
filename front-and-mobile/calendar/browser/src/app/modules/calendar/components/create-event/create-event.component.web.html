@@ -1,0 +1,122 @@
+<div class="create-event" *ngIf="eventModel$ | async as eventModel; else skeleton">
+    <h2 class="create-event__title">{{isEdit ? "Редактирование события" : "Создание события"}}</h2>
+
+    <div class="create-event__control-name">
+        <ab-text-control class="create-event__control-name_name" [model]="eventModel.controlsMap['name']"
+            [form]="eventModel.controlsMap['name']"></ab-text-control>
+        <app-calendar-color-picker
+            class="create-event__control-name_color"
+            [model]="eventModel.controlsMap['color']"
+            [form]="eventModel.controlsMap['color']">
+        </app-calendar-color-picker>
+    </div>
+
+    <div class="create-event__time">
+        <span class="create-event__time-title">Время</span>
+        <div class="create-event__time-controls">
+            <ab-date-picker-control class="create-event__time-controls_date"
+                [model]="eventModel.controlsMap['dateStart']"
+                [form]="eventModel.controlsMap['dateStart']"></ab-date-picker-control>
+            <ab-text-control
+                *ngIf="!eventModel.controlsMap['isAllDay'].getValue()"
+                class="create-event__time-controls_time"
+                [model]="eventModel.controlsMap['timeStart']"
+                [form]="eventModel.controlsMap['timeStart']"></ab-text-control>
+            <span class="create-event__dash">—</span>
+            <ab-text-control
+                *ngIf="!eventModel.controlsMap['isAllDay'].getValue()"
+                class="create-event__time-controls_time"
+                [model]="eventModel.controlsMap['timeEnd']"
+                [form]="eventModel.controlsMap['timeEnd']"></ab-text-control>
+            <ab-date-picker-control class="create-event__time-controls_date" [model]="eventModel.controlsMap['dateEnd']"
+                [form]="eventModel.controlsMap['dateEnd']"></ab-date-picker-control>
+            <ab-checkbox-control
+                class="create-event__time-controls_all-day"
+                [model]="eventModel.controlsMap['isAllDay']"
+                [form]="eventModel.controlsMap['isAllDay']"></ab-checkbox-control>
+        </div>
+    </div>
+    <ab-select-control class="create-event__control" [model]="eventModel.controlsMap['userCalendar']"
+        [form]="eventModel.controlsMap['userCalendar']"></ab-select-control>
+    <ab-multi-select-control class="create-event__control" [model]="eventModel.controlsMap['userIdList']"
+        [form]="eventModel.controlsMap['userIdList']">
+        <ab-multi-select-data-list *dataList>
+            <ab-data-list-checkbox-item
+                *ngFor="let item of eventModel.groupsAndUsers"
+                [value]="item"
+            >
+                {{ item.name }}
+            </ab-data-list-checkbox-item>
+        </ab-multi-select-data-list>
+    </ab-multi-select-control>
+    <div class="create-event__control" *ngIf="eventModel.groupsWithUsers.length">
+        Выбранные группы:
+        <div *ngFor="let group of eventModel.groupsWithUsers">
+            <span class="create-event__group-name" [abHint]="usersContext">{{group.name}}</span>
+            <ng-template #usersContext>
+                <div *ngFor="let user of group.users">
+                    {{user}}
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <ab-accordeon-item class="create-event__accordeon">
+        Дополнительно
+        <ng-template accordeonContent>
+            <ab-textarea-control class="create-event__control" [model]="eventModel.controlsMap['description']"
+                [form]="eventModel.controlsMap['description']"></ab-textarea-control>
+            <ab-select-control class="create-event__control" [model]="eventModel.controlsMap['place']"
+                [form]="eventModel.controlsMap['place']"></ab-select-control>
+            <ab-select-control class="create-event__control" [model]="eventModel.controlsMap['replay']"
+                [form]="eventModel.controlsMap['replay']"></ab-select-control>
+        </ng-template>
+    </ab-accordeon-item>
+
+    <div class="create-event__buttons" *abLet="isLoading$ | async as loading">
+        <ab-ui-button
+            [disabled]="!eventModel.valid"
+            [isLoading]="loading"
+            (abClick)="createEvent(eventModel)"
+            [size]="'l'"
+        >
+            {{ isEdit ? 'Сохранить' : 'Создать' }}
+        </ab-ui-button>
+        <ab-ui-button
+            (abClick)="close(eventModel)"
+            [disabled]="loading"
+            [size]="'l'"
+            [type]="'secondary'"
+        >
+            {{ isEdit ? 'Удалить' : 'Отменить' }}
+        </ab-ui-button>
+    </div>
+</div>
+
+<ng-template #skeleton>
+    <div class="create-event-skeleton">
+        <div class="create-event-skeleton__title">
+            <div class="create-event-skeleton__title_name"></div>
+        </div>
+        <div class="create-event-skeleton__controls-name">
+            <div class="create-event-skeleton__controls-name_name"></div>
+            <div class="create-event-skeleton__controls-name_color"></div>
+        </div>
+        <div class="create-event-skeleton__time-title"></div>
+        <div class="create-event-skeleton__time-controls">
+            <div class="create-event-skeleton__time-controls_date"></div>
+            <div class="create-event-skeleton__time-controls_time"></div>
+            —
+            <div class="create-event-skeleton__time-controls_time"></div>
+            <div class="create-event-skeleton__time-controls_date"></div>
+            <div class="create-event-skeleton__time-controls_all-day"></div>
+            <div class="create-event-skeleton__time-controls_all-day-title"></div>
+        </div>
+        <div class="create-event-skeleton__control"></div>
+        <div class="create-event-skeleton__control"></div>
+        <div class="create-event-skeleton__accordeon"></div>
+        <div class="create-event-skeleton__buttons">
+            <div class="create-event-skeleton__button"></div>
+            <div class="create-event-skeleton__button"></div>
+        </div>
+    </div>
+</ng-template>

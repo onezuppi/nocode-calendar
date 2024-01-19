@@ -1,0 +1,57 @@
+<div class="create-group" *ngIf="createGroupViewModel$ | async as gModel; else skeleton">
+    <ab-select-control
+        *ngIf="isEdit"
+        class="create-group__control"
+        [form]="gModel.controlsMap['groups']"
+        [model]="gModel.controlsMap['groups']">
+    </ab-select-control>
+    <ab-text-control
+        class="create-group__control"
+        [form]="gModel.controlsMap['name']"
+        [model]="gModel.controlsMap['name']">
+    </ab-text-control>
+    <ab-multi-select-control
+        class="create-group__control"
+        [form]="gModel.controlsMap['userGuidList']"
+        [model]="gModel.controlsMap['userGuidList']">
+        <ab-multi-select-data-list *dataList>
+            <ab-data-list-checkbox-item *ngFor="let user of gModel?.users" [value]="user">
+                {{user.name}}
+            </ab-data-list-checkbox-item>
+        </ab-multi-select-data-list>
+    </ab-multi-select-control>
+    <div class="create-group__buttons">
+        <ab-ui-button
+            [disabled]="!gModel.valid"
+            (abClick)="create(gModel)"
+            [size]="'l'"
+        >
+            {{ isEdit ? 'Сохранить' : 'Создать' }}
+        </ab-ui-button>
+        <ab-ui-button
+            (abClick)="close()"
+            [size]="'l'"
+            [type]="'secondary'"
+        >
+            {{ isEdit ? 'Удалить' : 'Отменить' }}
+        </ab-ui-button>
+    </div>
+</div>
+
+
+<ng-template #skeleton>
+    <div class="create-group-sk">
+        <div class="create-group-sk__control">
+            <div class="create-group-sk__control-title"></div>
+            <div class="create-group-sk__control-value"></div>
+        </div>
+        <div class="create-group-sk__control">
+            <div class="create-group-sk__control-title"></div>
+            <div class="create-group-sk__control-value"></div>
+        </div>
+        <div class="create-group-sk__control-buttons">
+            <div class="create-group-sk__control-button"></div>
+            <div class="create-group-sk__control-button"></div>
+        </div>
+    </div>
+</ng-template>

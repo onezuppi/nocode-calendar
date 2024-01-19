@@ -1,0 +1,25 @@
+<ng-container *ngIf="sideBarModalWebService | async as sideBarModalList">
+    <div
+        @sideBarAnimation
+        *ngFor="let sideBarModal of sideBarModalList; let last = last"
+        class="side-bar-modal"
+        [class.is-last]="last"
+    >
+        <ng-container *ngIf="sideBarModal.isTemplate; else componentOutlet" >
+            <ng-container
+                *abOutletTemplate="sideBarModal.content; context: { context: sideBarModal.context }; injector: sideBarModal.injector"
+            ></ng-container>
+        </ng-container>
+        <ng-template #componentOutlet>
+            <ng-container
+                *abOutletComponent="{
+                    component: sideBarModal.content,
+                    params: { context: sideBarModal.context },
+                    injector: sideBarModal.injector,
+                    ngModuleRef: sideBarModal.ngModuleRef
+                }"
+            >
+            </ng-container>
+        </ng-template>
+    </div>
+</ng-container>

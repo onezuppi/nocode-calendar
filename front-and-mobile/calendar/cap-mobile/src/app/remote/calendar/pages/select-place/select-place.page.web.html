@@ -1,0 +1,12 @@
+<div class="select-place" *abLet="places$ | async as places">
+    <div class="select-place__block" *ngIf="places?.length; else noContent">
+        <h1 class="select-place__title">Место встречи</h1>
+        <div *ngFor="let place of places" class="select-place__item" (click)="openCalendar(place.value.id)">
+            {{place.name}}
+        </div>
+    </div>
+</div>
+
+<ng-template #noContent>
+    <span class="select-place__no-place">Отсутствуют места</span>
+</ng-template>

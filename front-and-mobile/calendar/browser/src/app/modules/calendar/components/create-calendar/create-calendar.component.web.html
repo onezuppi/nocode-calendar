@@ -1,0 +1,55 @@
+<div class="create-calendar" *ngIf="isLoad | async; else skeleton">
+    <ab-select-control
+        *ngIf="isEdit"
+        class="create-calendar__control"
+        [form]="calendarCreateViewModel.controlsMap['calendars']"
+        [model]="calendarCreateViewModel.controlsMap['calendars']">
+    </ab-select-control>
+    <ab-text-control
+        class="create-calendar__control"
+        [form]="calendarCreateViewModel.controlsMap['name']"
+        [model]="calendarCreateViewModel.controlsMap['name']">
+    </ab-text-control>
+    <app-calendar-color-picker
+        class="create-calendar__control"
+        [form]="calendarCreateViewModel.controlsMap['color']"
+        [model]="calendarCreateViewModel.controlsMap['color']">
+    </app-calendar-color-picker>
+    <div class="create-calendar__buttons">
+        <ab-ui-button
+            [disabled]="!calendarCreateViewModel.valid"
+            (abClick)="create()"
+            [size]="'l'"
+        >
+            {{ isEdit ? 'Сохранить' : 'Создать' }}
+        </ab-ui-button>
+        <ab-ui-button
+            (abClick)="close()"
+            [size]="'l'"
+            [type]="'secondary'"
+        >
+            {{ isEdit ? 'Удалить' : 'Отменить' }}
+        </ab-ui-button>
+    </div>
+</div>
+
+<ng-template #skeleton>
+    <div class="create-calendar-skeleton">
+        <div class="create-calendar-skeleton__control">
+            <div class="create-calendar-skeleton__control-title"></div>
+            <div class="create-calendar-skeleton__control-value"></div>
+        </div>
+        <div class="create-calendar-skeleton__control">
+            <div class="create-calendar-skeleton__control-title"></div>
+            <div class="create-calendar-skeleton__control-value"></div>
+        </div>
+        <div class="create-calendar-skeleton__control">
+            <div class="create-calendar-skeleton__control-title"></div>
+            <div class="create-calendar-skeleton__control-value"></div>
+        </div>
+        <div class="create-calendar-skeleton__control-buttons">
+            <div class="create-calendar-skeleton__control-button"></div>
+            <div class="create-calendar-skeleton__control-button"></div>
+        </div>
+    </div>
+</ng-template>

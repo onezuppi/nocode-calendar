@@ -1,0 +1,35 @@
+<div class="calendar">
+    <div class="calendar__navbar">
+        <div style="display: flex">
+            <div class="calendar__navigation">
+                <div>
+                    {{ (pgS.range$ | async) | dateRange | translate }}
+                </div>
+                <div class="calendar__navigation-btns" keybrd>
+                    <app-budge (click)="pgS.step(-1)">
+                        <ab-svg  without-hover iconPath="/assets/sprites/sprite.svg#arrow-app-left"></ab-svg>
+                    </app-budge>
+                    <div class="calendar__navigation-now" (click)="pgS.toDay()">Сегодня</div>
+                    <app-budge  (click)="pgS.step(1)">
+                        <ab-svg without-hover iconPath="/assets/sprites/sprite.svg#arrow-app-right"></ab-svg>
+                    </app-budge>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 16px">
+            <ab-select-control [model]="pgS.selectView"></ab-select-control>
+        </div>
+    </div>
+    <div class="calendar__body" >
+        <app-calendar-table
+            [events]="(pgS.events$ | async)"
+            [view]="pgS.view$ | async"
+            [isLoading]="eventManager.isLoading$ | async"
+            [cellHeight]="(pgS.view$ | async) === 'month' ? 150: 50"
+            [showNowLine]="(pgS.view$ | async) !== 'month'"
+            [titleColumnWidth]="50"
+            [startWorkDay]="8"
+            [endWorkDay]="20">
+        </app-calendar-table>
+    </div>
+</div>
